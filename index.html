@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <title>app-router</title>
+    <script src="/bower_components/platform/platform.js"></script>
+    <link rel="stylesheet" href="/css/styles.css" shim-shadowdom>
+    <link rel="import" href="/bower_components/app-router/src/app-router.html">
+    <link rel="import" href="/bower_components/polymer/polymer.html">
+  </head>
+  <body unresolved>
+
+    <polymer-element name="demo-app" attributes="sessionId">
+      <template>
+        <app-router id="router" on-activate-route-end="{{routeActivated}}">
+          <app-route path="/" import="/pages/home-page.html"></app-route>
+          <app-route path="/demo/:pathArg1" import="/pages/demo-page.html"></app-route>
+          <app-route path="/notes" import="/pages/notes-page.html"></app-route>
+          <app-route path="*" import="/pages/not-found-page.html"></app-route>
+        </app-router>
+      </template>
+      <script>
+        Polymer({
+          routeActivated: function(e) {
+            this.$.router.activeRouteContent.firstChild.bind('sessionId', new PathObserver(this, 'sessionId'));
+          }
+        });
+      </script>
+    </polymer-element>
+
+    <demo-app sessionId="12345"></demo-app>
+  </body>
+</html>
