@@ -34,11 +34,19 @@
           },
           sessionIdChanged: function(){
             console.log('sessionIdChange', this.sessionId);
+          },
+          ready: function(){
+            var self = this;
+            window.setTimeout(function(){
+
+              self.sessionId = '4321';
+
+            },3000)
           }
         });
       </script>
     </polymer-element>
 
-    <demo-app></demo-app>
+    <demo-app sessionId='123'></demo-app>
   </body>
 </html>
