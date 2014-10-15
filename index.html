@@ -14,6 +14,8 @@
 
     <polymer-element name="demo-app" attributes="sessionId">
       <template>
+        <div>Session ID: {{sessionId}}</div>
+        
         <app-router id="router" on-activate-route-end="{{routeActivated}}">
           <app-route path="/" import="/pages/home-page.html"></app-route>
           <app-route path="/demo/:pathArg1" import="/pages/demo-page.html"></app-route>
