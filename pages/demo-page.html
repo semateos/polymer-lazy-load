@@ -1,7 +1,7 @@
 <link rel="import" href="/bower_components/polymer/polymer.html">
 <link rel="import" href="/layouts/sidebar-layout.html">
 
-<polymer-element name="demo-page" attributes="pathArg1 queryParam1 sessionId" noscript>
+<polymer-element name="demo-page" attributes="pathArg1 queryParam1 session" noscript>
   <template>
     <sidebar-layout selected="demo">
       <div class="title">Data Binding Demo</div>
@@ -9,12 +9,12 @@
       <p>Path variables and query parameters are automatically attached to the element's attributes. Change values in the address bar and see them change here.</p>
 
       <ul>
-        <li><code>sessionId = {{sessionId}}</code></li>
+        <li><code>sessionId = {{session.id}}</code></li>
         <li><code>pathArg1 = {{pathArg1}}</code></li>
         <li><code>queryParam1 = {{queryParam1}}</code></li>
       </ul>
       
-      <input type="text" value="{{sessionId}}">
+      <input type="text" value="{{session.id}}">
 
       <h3>Example Route and Page</h3>
 

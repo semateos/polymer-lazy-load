@@ -12,7 +12,7 @@
   </head>
   <body unresolved>
 
-    <polymer-element name="demo-app" attributes="sessionId">
+    <polymer-element name="demo-app" attributes="session">
       <template>
         <app-router id="router" on-activate-route-end="{{routeActivated}}">
           <app-route path="/" import="/pages/home-page.html"></app-route>
@@ -24,29 +24,24 @@
       <script>
         Polymer({
           routeActivated: function(e) {
-            this.$.router.activeRouteContent.firstChild.sessionId = this.sessionId;
-
-            // binding the sessionId to the child set's the demo-app's sessionId to the child's sessionId. this is why
-            // i first had to set the child's sessionId with the app's session ID in case it's already been populated.
-            // later, changing it in the child will change it here effectively persisting it across page changes. a full
-            // refresh will lose it since we aren't really persisting it.
-            this.bind('sessionId', new PathObserver(this.$.router.activeRouteContent.firstChild, 'sessionId'));
+            console.log('routeActivated');
+            this.$.router.activeRouteContent.firstChild.session = this.session;
+            this.$.router.activeRouteContent.firstChild.bind('session', new PathObserver(this, 'session'));
+            this.bind('session', new PathObserver(this.$.router.activeRouteContent.firstChild, 'session'));
           },
-          sessionIdChanged: function(){
-            console.log('sessionIdChange', this.sessionId);
+          sessionChanged: function(){
+            console.log('sessionChange', this.session);
           },
           ready: function(){
             var self = this;
             window.setTimeout(function(){
-
-              self.sessionId = '4321';
-
-            },3000)
+              self.session = {id: '321'};
+            }, 3000);
           }
         });
       </script>
     </polymer-element>
 
-    <demo-app sessionId='123'></demo-app>
+    <demo-app session='{id: "123"}'></demo-app>
   </body>
 </html>

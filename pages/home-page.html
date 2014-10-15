@@ -1,7 +1,7 @@
 <link rel="import" href="/bower_components/polymer/polymer.html">
 <link rel="import" href="/layouts/sidebar-layout.html">
 
-<polymer-element name="home-page" attributes="sessionId" noscript>
+<polymer-element name="home-page" attributes="session" noscript>
   <template>
     <sidebar-layout selected="home">
       <div class="title">Home</div>
@@ -9,9 +9,9 @@
       <h2>Routing with <code>&lt;app-router&gt;</code>!</h2>
       <p>Lazy-load content. Bind path variables and query parameters. Use multiple layouts. Works with <code>hashchange</code> and <code>pushState</code>.</p>
 
-      <h2>Session ID: {{sessionId}}</h2>
+      <h2>Session ID: {{session.id}}</h2>
 
-      <input type="text" value="{{sessionId}}">
+      <input type="text" value="{{session.id}}">
 
     </sidebar-layout>
   </template>
