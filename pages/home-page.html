@@ -1,7 +1,7 @@
 <link rel="import" href="/bower_components/polymer/polymer.html">
 <link rel="import" href="/layouts/sidebar-layout.html">
 
-<polymer-element name="home-page" attributes="sessionId" noscript>
+<polymer-element name="home-page" attributes="sessionId">
   <template>
     <sidebar-layout selected="home">
       <div class="title">Home</div>
@@ -13,4 +13,14 @@
 
     </sidebar-layout>
   </template>
+  <script>
+    Polymer({
+      ready: function() {
+        setTimeout(function() {
+          // changing the sessionId here should reflect back on the main page
+          this.sessionId = '987654';
+        }.bind(this), 1500);
+      }
+    });
+  </script>
 </polymer-element>
