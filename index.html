@@ -14,8 +14,6 @@
 
     <polymer-element name="demo-app" attributes="sessionId">
       <template>
-        <div>Session ID: {{sessionId}}</div>
-
         <app-router id="router" on-activate-route-end="{{routeActivated}}">
           <app-route path="/" import="/pages/home-page.html"></app-route>
           <app-route path="/demo/:pathArg1" import="/pages/demo-page.html"></app-route>
@@ -26,12 +24,21 @@
       <script>
         Polymer({
           routeActivated: function(e) {
-            this.bind('sessionId', new PathObserver(this, '$.router.activeRouteContent.firstChild.sessionId'));
+            this.$.router.activeRouteContent.firstChild.sessionId = this.sessionId;
+
+            // binding the sessionId to the child set's the demo-app's sessionId to the child's sessionId. this is why
+            // i first had to set the child's sessionId with the app's session ID in case it's already been populated.
+            // later, changing it in the child will change it here effectively persisting it across page changes. a full
+            // refresh will lose it since we aren't really persisting it.
+            this.bind('sessionId', new PathObserver(this.$.router.activeRouteContent.firstChild, 'sessionId'));
+          },
+          sessionIdChanged: function(){
+            console.log('sessionIdChange', this.sessionId);
           }
         });
       </script>
     </polymer-element>
 
-    <demo-app sessionId="12345"></demo-app>
+    <demo-app></demo-app>
   </body>
 </html>
