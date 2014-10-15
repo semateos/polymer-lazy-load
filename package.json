@@ -1,10 +1,10 @@
 {
-  "name": "polymer-router-demos",
-  "description": "Demo routing with Polymer",
+  "name": "polymer-lazy-load",
+  "description": "Polymer Lazy Load Fail",
   "version": "0.0.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/erikringsmuth/polymer-router-demos"
+    "url": "https://github.com/semateos/polymer-lazy-load"
   },
   "license": "MIT",
   "dependencies": {
