@@ -1,0 +1,26 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+  
+<polymer-element name="lazy-test" attributes="session">
+  <template>
+
+    <h1>Child: {{session.id}}</h1>
+    <input type="text" value="{{session.id}}">
+    
+  </template>
+  <script>
+    Polymer({
+      created: function() {
+        // hint that session is an object
+        this.session = {};
+      },
+
+      ready: function(){
+        this.fire('ready');
+      },
+
+      sessionChanged: function(){
+        console.log('child sessionChange', this.session);
+      },
+    });
+  </script>
+</polymer-element>
