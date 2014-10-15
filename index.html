@@ -8,7 +8,8 @@
     <script src="/bower_components/platform/platform.js"></script>
     <link rel="stylesheet" href="/css/styles.css" shim-shadowdom>
     <link rel="import" href="/bower_components/polymer/polymer.html">
-    
+    <link rel="import" href="/elements/lazy-two.html">
+
   </head>
   <body unresolved>
 
@@ -19,32 +20,62 @@
 
         <input type="text" value="{{session.id}}">
       
-        <button on-tap="{{buttonClick}}">Test Import</button>
-        
-        <lazy-test id="test" session="{{session}}"></lazy-test>
+        <button on-tap="{{buttonClickOne}}">Test Import One</button>
+        <button on-tap="{{buttonClickTwo}}">Test Import Two</button>
+
+        <div id="holder"></div>
 
       </template>
       <script>
         Polymer({
 
-          buttonClick: function(e){
+          buttonClickOne: function(e){
 
-            console.log('buttonClick');
+            console.log('buttonClickOne');
 
             var self = this;
-            var test = this.$.test;
+            var holder = this.$.holder;
 
             console.log('self: ', self);
-            console.log('test: ', test);
 
             Polymer.import( ['/elements/lazy-test.html'], function(){
 
               console.log('elementLoaded');
 
-              test.session = self.session;
-              self.bind('session', new PathObserver(test, 'session'));
+              //create the child element
+              var child = document.createElement('lazy-test');
 
+              //set the value to the current value
+              child.session = self.session;
+
+              //bind the value back to the parent
+              self.bind('session', new PathObserver(child, 'session'));
+
+              //attach it to the parent
+              holder.appendChild(child);
             });
+          },
+
+          buttonClickTwo: function(e){
+
+            console.log('buttonClickTwo');
+
+            var self = this;
+            var holder = this.$.holder;
+
+            console.log('self: ', self);
+
+            //create the child element
+            var child = document.createElement('lazy-two');
+
+            //set the value to the current value
+            child.session = self.session;
+
+            //bind the value back to the parent
+            self.bind('session', new PathObserver(child, 'session'));
+
+            //attach it to the parent
+            holder.appendChild(child);
           },
 
           sessionChanged: function(){
