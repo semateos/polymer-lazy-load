@@ -25,15 +25,17 @@
         Polymer({
           routeActivated: function(e) {
             this.$.router.activeRouteContent.firstChild.sessionId = this.sessionId;
-
-            // binding the sessionId to the child set's the demo-app's sessionId to the child's sessionId. this is why
-            // i first had to set the child's sessionId with the app's session ID in case it's already been populated.
-            // later, changing it in the child will change it here effectively persisting it across page changes. a full
-            // refresh will lose it since we aren't really persisting it.
+            this.$.router.activeRouteContent.firstChild.bind('sessionId', new PathObserver(this, 'sessionId'));
             this.bind('sessionId', new PathObserver(this.$.router.activeRouteContent.firstChild, 'sessionId'));
           },
           sessionIdChanged: function(){
             console.log('sessionIdChange', this.sessionId);
+          },
+          ready: function(){
+            var self = this;
+            window.setTimeout(function(){
+              self.sessionId = '4321';
+            }, 3000);
           }
         });
       </script>
