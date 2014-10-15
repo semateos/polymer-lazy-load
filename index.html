@@ -45,11 +45,8 @@
               //create the child element
               var child = document.createElement('lazy-test');
 
-              //set the value to the current value
-              child.session = self.session;
-
-              //bind the value back to the parent
-              self.bind('session', new PathObserver(child, 'session'));
+              //bind the value to the parent
+              child.bind('session', new PathObserver(self, 'session'));
 
               //attach it to the parent
               holder.appendChild(child);
@@ -60,19 +57,13 @@
 
             console.log('buttonClickTwo');
 
-            var self = this;
             var holder = this.$.holder;
-
-            console.log('self: ', self);
 
             //create the child element
             var child = document.createElement('lazy-two');
 
-            //set the value to the current value
-            child.session = self.session;
-
-            //bind the value back to the parent
-            self.bind('session', new PathObserver(child, 'session'));
+            //bind the value to the parent
+            child.bind('session', new PathObserver(this, 'session'));
 
             //attach it to the parent
             holder.appendChild(child);
