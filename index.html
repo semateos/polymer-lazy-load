@@ -24,7 +24,16 @@
       <script>
         Polymer({
           routeActivated: function(e) {
+            //this.bind('sessionId', new PathObserver(this.$.router.activeRouteContent.firstChild, 'sessionId'));
             this.$.router.activeRouteContent.firstChild.bind('sessionId', new PathObserver(this, 'sessionId'));
+          },
+
+          observe: {
+            sessionId: 'sessionIdChange'
+          },
+
+          sessionIdChange: function(){
+            console.log('sessionIdChange', this.sessionId);
           }
         });
       </script>
