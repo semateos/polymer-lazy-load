@@ -1,14 +1,11 @@
 <link rel="import" href="/bower_components/polymer/polymer.html">
-<link rel="import" href="/elements/lazy-two.html">
-
-<polymer-element name="lazy-test" attributes="session">
+  
+<polymer-element name="lazy-two" attributes="session">
   <template>
 
-    <h1>Lazy Child One: {{session.id}}</h1>
+    <h1>Lazy Child Two: {{session.id}}</h1>
     <input type="text" value="{{session.id}}">
     
-    <lazy-two id="test" session="{{session}}"></lazy-two>
-
   </template>
   <script>
     Polymer({
@@ -18,7 +15,13 @@
       },
 
       ready: function(){
-        console.log('lazy child ready');
+
+        var self = this;
+        window.setTimeout(function(){
+          self.session = {id: '856'};
+        }, 3000);
+
+        console.log('lazy child two ready');
         this.fire('ready');
       },
 

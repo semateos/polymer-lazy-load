@@ -21,38 +21,30 @@
       
         <button on-tap="{{buttonClick}}">Test Import</button>
         
-        <lazy-test id="test"></lazy-test>
+        <lazy-test id="test" session="{{session}}"></lazy-test>
 
       </template>
       <script>
         Polymer({
 
-          elementLoaded: function(e) {
-            
-            console.log('elementLoaded');
-            
-            var self = self;
-            var test = this.$.test;
-
-            test.addEventListener('ready', function(){
-
-              console.log('elementReady');
-
-              test.session = self.session;
-              test.bind('session', new PathObserver(self, 'session'));
-              self.bind('session', new PathObserver(test, 'session'));
-
-            });
-          },
-
           buttonClick: function(e){
 
             console.log('buttonClick');
 
-            Polymer.import( ['/elements/lazy-test.html'], function() {
-                console.log('/elements/lazy-test.html loaded');
-                this.elementLoaded();
-            }.bind(this));
+            var self = this;
+            var test = this.$.test;
+
+            console.log('self: ', self);
+            console.log('test: ', test);
+
+            Polymer.import( ['/elements/lazy-test.html'], function(){
+
+              console.log('elementLoaded');
+
+              test.session = self.session;
+              self.bind('session', new PathObserver(test, 'session'));
+
+            });
           },
 
           sessionChanged: function(){
@@ -60,12 +52,6 @@
           },
 
           ready: function(){
-
-            window.addEventListener('WebComponentsReady', function(e) {
-              
-              console.log('WebComponentsReady');
-
-            });
 
             var self = this;
             window.setTimeout(function(){
